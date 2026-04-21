@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiayun Jin — Computational Social Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0c;
+  --bg-elevated: #111114;
+  --bg-card: #16161a;
+  --text: #e8e6e3;
+  --text-muted: #8a8a8e;
+  --accent: #d4a574;
+  --accent-dim: rgba(212, 165, 116, 0.08);
+  --accent-mid: rgba(212, 165, 116, 0.15);
+  --border: rgba(255, 255, 255, 0.06);
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-display);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ============ NOISE OVERLAY ============ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============ NAV ============ */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.nav-links { display: flex; gap: 2rem; }
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: color 0.3s var(--ease);
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 2.5rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+}
+
+.hero h1 .accent { color: var(--accent); }
+
+.hero-description {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.6s forwards;
+}
+
+.hero-description em {
+  color: var(--text);
+  font-style: italic;
+}
+
+.hero-subdesc {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.7s forwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s var(--ease);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* hero decorative element */
+.hero-geo {
+  position: absolute;
+  right: -5%;
+  top: 20%;
+  width: 400px;
+  height: 400px;
+  border: 1px solid var(--accent-mid);
+  border-radius: 50%;
+  opacity: 0;
+  animation: geoIn 1.5s var(--ease) 0.5s forwards;
+}
+
+.hero-geo::after {
+  content: '';
+  position: absolute;
+  inset: 40px;
+  border: 1px solid var(--accent-dim);
+  border-radius: 50%;
+}
+
+/* ============ SECTION COMMON ============ */
+section {
+  padding: 6rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  max-width: 650px;
+  line-height: 1.7;
+  margin-bottom: 3.5rem;
+}
+
+/* ============ ABOUT ============ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.about-text strong { color: var(--text); font-weight: 500; }
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 0.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-item:last-child { border-bottom: none; }
+
+.timeline-period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  min-width: 6rem;
+  letter-spacing: 0.03em;
+}
+
+.timeline-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.timeline-desc strong { color: var(--text); font-weight: 500; }
+
+/* ============ RESEARCH ============ */
+.research-areas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.research-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 3px;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.research-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.research-card:hover::before { transform: scaleX(1); }
+.research-card:hover { border-color: rgba(255, 255, 255, 0.1); }
+
+.research-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.research-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ============ PUBLICATIONS ============ */
+.pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.pub-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.8rem 2rem;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  transition: border-color 0.3s;
+}
+
+.pub-item:hover { border-color: rgba(255, 255, 255, 0.1); }
+
+.pub-year {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  min-width: 3.5rem;
+}
+
+.pub-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.pub-journal {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 0.3rem;
+}
+
+.pub-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.pub-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ============ PROJECTS ============ */
+.project-featured {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-featured::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.project-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--accent-mid);
+  display: inline-block;
+  margin-bottom: 1.2rem;
+}
+
+.project-featured h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.project-featured p {
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 700px;
+  margin-bottom: 1.5rem;
+}
+
+.tech-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: 0.35rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+}
+
+.project-other {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 3px;
+  transition: all 0.3s var(--ease);
+}
+
+.project-card:hover { border-color: rgba(255, 255, 255, 0.1); }
+
+.project-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.project-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ============ SKILLS ============ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-group h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-items { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.skill-item {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.skill-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ============ TEACHING ============ */
+.teaching-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.teaching-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 3px;
+}
+
+.teaching-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.teaching-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+}
+
+.teaching-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ============ CONTACT ============ */
+.contact-section {
+  text-align: center;
+  padding: 8rem 2.5rem;
+}
+
+.contact-section .section-intro {
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.3s var(--ease);
+  letter-spacing: 0.05em;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ============ FOOTER ============ */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ============ DIVIDER ============ */
+.divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.divider hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes geoIn {
+  from { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* scroll-triggered fade */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.72rem; }
+  section { padding: 4rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .research-areas { grid-template-columns: 1fr; }
+  .project-other { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .teaching-grid { grid-template-columns: 1fr; }
+  .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .pub-link { justify-self: start; }
+  .hero-geo { display: none; }
+  .hero { padding: 7rem 1.5rem 3rem; }
+}
+
+@media (max-width: 600px) {
+  .nav-links a { font-size: 0.65rem; letter-spacing: 0.08em; }
+  .nav-links { gap: 0.6rem; }
+  .about-timeline { padding-top: 1.5rem; }
+  .hero-cta { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JJ</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#publications">Papers</a>
+    <a href="#projects">Projects</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">Computational Social Scientist</div>
+  <h1>Jiayun <span class="accent">Jin</span></h1>
+  <p class="hero-description">
+    My work begins with a measurement question: <em>how can we know whether social data are reliable?</em> 
+    I study how response processes shape what researchers observe, and I build transparent computational 
+    workflows for turning messy human responses into reliable, interpretable evidence.
+  </p>
+  <p class="hero-subdesc">
+    One continuous question, evolving across surveys, text, and digital social data.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-geo"></div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">01 / About</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I am a quantitative sociologist working at the intersection of <strong>measurement methodology</strong> and 
+          <strong>computational social science</strong>. My work asks how researchers can turn complex social data — surveys, 
+          open-ended text, and digital traces — into reliable evidence without hiding the uncertainty and 
+          interpretive decisions involved.
+        </p>
+        <p>
+          I was trained in survey methodology and statistical monitoring, and my earlier work focused on 
+          response quality, measurement error, and data collection processes. I now extend this measurement 
+          perspective to <strong>computational text analysis</strong> and <strong>AI-assisted coding workflows</strong>, building tools 
+          that make social science analysis more transparent, auditable, and reproducible.
+        </p>
+        <p>
+          I am currently based in the <strong>Netherlands</strong> and seeking research, data science, or academic roles 
+          where I can contribute to interdisciplinary, infrastructure-level work in the social sciences.
+        </p>
+      </div>
+      <div class="about-timeline">
+        <div class="timeline-item">
+          <div class="timeline-period">2015–2021</div>
+          <div class="timeline-desc"><strong>PhD in Social Sciences</strong> at KU Leuven, Belgium. Statistical process monitoring for survey data quality.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2022–2025</div>
+          <div class="timeline-desc"><strong>Assistant Professor</strong> at Renmin University of China. Teaching, funded research (PI), student supervision.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2025–</div>
+          <div class="timeline-desc"><strong>Based in the Netherlands.</strong> Developing OpenCodebook and seeking research/data science roles in computational social science.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="reveal">
+    <div class="section-label">02 / Research</div>
+    <h2 class="section-title">Research Areas</h2>
+    <p class="section-intro">
+      My work connects measurement methodology, computational text analysis, and substantive social science — 
+      asking how we can build more transparent and reliable analytical workflows for complex social data.
+    </p>
+    <div class="research-areas">
+      <div class="research-card">
+        <h3>Measurement Quality</h3>
+        <p>Statistical monitoring of data collection, response quality assessment, and error detection in survey and computational pipelines.</p>
+      </div>
+      <div class="research-card">
+        <h3>Computational Text Analysis</h3>
+        <p>Model-assisted coding of open-ended text, interpretable annotation workflows, and reliability assessment for AI-generated codes.</p>
+      </div>
+      <div class="research-card">
+        <h3>Latent Structure & Heterogeneity</h3>
+        <p>Mixture models, latent-class analysis, and structured heterogeneity detection in attitudinal and behavioral data.</p>
+      </div>
+      <div class="research-card">
+        <h3>Survey Methodology</h3>
+        <p>Multivariate process control, nonparametric monitoring, and scalable quality indicators for ongoing data collection.</p>
+      </div>
+      <div class="research-card">
+        <h3>Social Inequality</h3>
+        <p>Gender attitudes, hidden patterns in attitudinal surveys, and mechanism-based explanations from individual-level data.</p>
+      </div>
+      <div class="research-card">
+        <h3>Open & Reproducible Science</h3>
+        <p>Building research tools that make analytical decisions auditable, shareable, and reproducible across teams.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="reveal">
+    <div class="section-label">03 / Publications</div>
+    <h2 class="section-title">Selected Papers</h2>
+    <p class="section-intro">
+      Peer-reviewed work spanning measurement methodology, survey quality, and computational social science.
+    </p>
+    <div class="pub-list">
+      <div class="pub-item">
+        <span class="pub-year">2025</span>
+        <div>
+          <div class="pub-title">Disentangling and Reassembling: Unveiling Hidden Patterns in Gender Attitudinal Surveys</div>
+          <div class="pub-journal">Sociological Methods &amp; Research</div>
+        </div>
+        <a href="https://doi.org/10.1177/00491241251413678" class="pub-link" target="_blank">DOI ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2022</span>
+        <div>
+          <div class="pub-title">Nonparametric Multivariate Control Charts for Numerical and Categorical Variables</div>
+          <div class="pub-journal">Communications in Statistics — Simulation and Computation</div>
+        </div>
+        <a href="https://doi.org/10.1080/03610918.2021.2023572" class="pub-link" target="_blank">DOI ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2021</span>
+        <div>
+          <div class="pub-title">Identifying Outliers in Response Quality Assessment by Using Multivariate Control Charts Based on Kernel Density Estimation</div>
+          <div class="pub-journal">Journal of Official Statistics</div>
+        </div>
+        <a href="https://doi.org/10.2478/jos-2021-0005" class="pub-link" target="_blank">DOI ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2020</span>
+        <div>
+          <div class="pub-title">Assessing Response Quality by Using Multivariate Control Charts for Numerical and Categorical Response Quality Indicators</div>
+          <div class="pub-journal">Journal of Survey Statistics and Methodology</div>
+        </div>
+        <a href="https://doi.org/10.1093/jssam/smaa012" class="pub-link" target="_blank">DOI ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2019</span>
+        <div>
+          <div class="pub-title">The Evaluation of Statistical Process Control Methods to Monitor Interview Duration during Survey Data Collection</div>
+          <div class="pub-journal">SAGE Open</div>
+        </div>
+        <a href="https://doi.org/10.1177/2158244019854652" class="pub-link" target="_blank">DOI ↗</a>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <p style="font-size: 0.88rem; color: var(--text-muted); font-weight: 300;">
+        <strong style="color: var(--text);">Working papers:</strong>&nbsp;
+        <em>From Words to Scales: Learning Latent Attitudes from Open-Ended Text Responses</em> ·
+        <em>Listening to Silence: Understanding the Role of "Don't Know" Responses in Gender Attitudinal Surveys</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">04 / Projects</div>
+    <h2 class="section-title">Software &amp; Research Projects</h2>
+    <p class="section-intro">
+      Tools and studies I'm building — focused on making computational social science workflows more transparent and reproducible.
+    </p>
+
+    <div class="project-featured">
+      <div class="project-badge">Featured · Active Development</div>
+      <h3>OpenCodebook</h3>
+      <p>
+        A Python framework for transparent, auditable, model-assisted coding of open-ended social science text. 
+        Researchers define structured codebooks in YAML; local open-source LLMs apply the codes; 
+        the pipeline produces structured outputs with built-in reliability diagnostics. 
+        Currently piloted on the GLES 2025 German election survey — analyzing how reliably 
+        different models code citizens' "most important political problem" responses.
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Ollama</span>
+        <span class="tech-tag">YAML</span>
+        <span class="tech-tag">GLES 2025</span>
+        <span class="tech-tag">Measurement Quality</span>
+        <span class="tech-tag">Open Source</span>
+      </div>
+      <a href="https://github.com/jinjiayun57/open-codebook" class="btn btn-outline" target="_blank">View on GitHub ↗</a>
+    </div>
+
+    <div class="project-other">
+      <div class="project-card">
+        <h4>GLES MIP Reliability Pilot</h4>
+        <p>
+          A measurement quality study using OpenCodebook to analyze inter-model agreement on 400 stratified 
+          open-ended responses from the GLES Rolling Cross-Section 2025. Examines how coding reliability 
+          varies by response complexity and issue domain.
+        </p>
+      </div>
+      <div class="project-card">
+        <h4>Gender Attitude Latent Structures</h4>
+        <p>
+          Research on hidden heterogeneity in gender attitude surveys using mixture models and latent-class analysis. 
+          Published in Sociological Methods &amp; Research (2025). Currently extending to open-ended text responses.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- SKILLS -->
+<section>
+  <div class="reveal">
+    <div class="section-label">05 / Skills</div>
+    <h2 class="section-title">Technical Profile</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Programming</h3>
+        <div class="skill-items">
+          <div class="skill-item">Python (pandas, NumPy, scikit-learn, Jupyter)</div>
+          <div class="skill-item">R (tidyverse, statistical modeling, reproducible reporting)</div>
+          <div class="skill-item">Git / GitHub</div>
+          <div class="skill-item">YAML / JSON, research workflow design</div>
+          <div class="skill-item">Reproducible research workflows</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Methods</h3>
+        <div class="skill-items">
+          <div class="skill-item">Statistical modeling & machine learning</div>
+          <div class="skill-item">Latent variable & mixture modeling</div>
+          <div class="skill-item">Text analysis & NLP</div>
+          <div class="skill-item">Survey methodology & psychometrics</div>
+          <div class="skill-item">Anomaly detection & quality monitoring</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Research Practice</h3>
+        <div class="skill-items">
+          <div class="skill-item">Interdisciplinary collaboration</div>
+          <div class="skill-item">Workshop design & delivery</div>
+          <div class="skill-item">Student supervision & mentoring</div>
+          <div class="skill-item">Grant writing (PI experience)</div>
+          <div class="skill-item">Open science & reproducibility</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TEACHING -->
+<section id="teaching">
+  <div class="reveal">
+    <div class="section-label">06 / Teaching</div>
+    <h2 class="section-title">Teaching Experience</h2>
+    <p class="section-intro">
+      Three years of teaching statistics, data analysis, and computational methods to social science students at undergraduate and graduate level.
+    </p>
+    <div class="teaching-grid">
+      <div class="teaching-card">
+        <h4>Quantitative Research Methods</h4>
+        <div class="teaching-meta">Graduate · 2023–2025 · Renmin University</div>
+        <p>Research design, statistical inference, and applied data analysis for graduate students in sociology and related fields.</p>
+      </div>
+      <div class="teaching-card">
+        <h4>Data Analysis with R</h4>
+        <div class="teaching-meta">Undergraduate · 2022–2025 · Renmin University</div>
+        <p>Hands-on introduction to R programming, data wrangling, visualization, and reproducible analysis for social science students.</p>
+      </div>
+      <div class="teaching-card">
+        <h4>Principles of Statistics</h4>
+        <div class="teaching-meta">Undergraduate · 2022–2025 · Renmin University</div>
+        <p>Foundations of probability, statistical reasoning, and descriptive and inferential methods.</p>
+      </div>
+      <div class="teaching-card">
+        <h4>Social Statistics</h4>
+        <div class="teaching-meta">Undergraduate · 2022–2025 · Renmin University</div>
+        <p>Applied statistics for sociological research, including survey analysis and hypothesis testing.</p>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <p style="font-size: 0.88rem; color: var(--text-muted); font-weight: 300;">
+        <strong style="color: var(--text);">Awards:</strong>&nbsp;
+        Young Faculty Teaching Skills Award (2024, Renmin University) ·
+        Innovation Prize, NPSO Innovatiedag (2019, Statistics Netherlands)
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="reveal">
+    <div class="section-label">07 / Contact</div>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-intro">
+      I am currently seeking research, data science, or academic positions in the Netherlands, 
+      and I am open to conversations about collaboration, consulting, or research opportunities.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:jiayun.jin.research@gmail.com" class="contact-link">Email</a>
+      <a href="https://github.com/jinjiayun57" class="contact-link" target="_blank">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Jiayun Jin · Best, The Netherlands · 2026</p>
+</footer>
+
+<!-- SCROLL REVEAL -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
