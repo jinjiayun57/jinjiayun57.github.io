@@ -505,6 +505,181 @@ section {
   line-height: 1.6;
 }
 
+
+.np-card {
+  grid-column: 1 / -1;
+}
+
+.np-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.np-card-title-wrap h4 {
+  margin-bottom: 0.25rem;
+  font-size: 1.08rem;
+}
+
+.np-card-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.np-mini-badges {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 1.1rem;
+}
+
+.np-mini-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+}
+
+.np-card-main {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 1.2rem;
+  margin-top: 1.1rem;
+  align-items: start;
+}
+
+.np-design-box,
+.np-result-box {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  border-radius: 3px;
+  padding: 1rem;
+}
+
+.np-box-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.7rem;
+}
+
+.np-design-flow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.np-flow-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.np-node {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.7rem;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.03);
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.np-node strong {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.np-arrow {
+  color: var(--accent);
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
+.np-note {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.np-matrix {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 1fr;
+  gap: 0.45rem;
+  align-items: stretch;
+}
+
+.np-matrix-cell {
+  border-radius: 2px;
+  padding: 0.65rem 0.6rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.np-matrix-header {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.68rem;
+  min-height: auto;
+}
+
+.np-matrix-rowlabel {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.np-matrix-green {
+  background: rgba(93, 201, 126, 0.12);
+  border: 1px solid rgba(93, 201, 126, 0.3);
+}
+
+.np-matrix-yellow {
+  background: rgba(219, 182, 76, 0.12);
+  border: 1px solid rgba(219, 182, 76, 0.28);
+}
+
+.np-matrix-red {
+  background: rgba(204, 92, 92, 0.12);
+  border: 1px solid rgba(204, 92, 92, 0.28);
+}
+
+.np-matrix-symbol {
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.np-takeaway {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
 /* ============ SKILLS ============ */
 .skills-grid {
   display: grid;
@@ -669,6 +844,8 @@ footer {
 .about-grid { grid-template-columns: 1fr; }
   .research-areas { grid-template-columns: 1fr; }
   .project-other { grid-template-columns: 1fr; }
+  .np-card-main { grid-template-columns: 1fr; }
+  .np-matrix { grid-template-columns: 1fr 1fr 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
   .teaching-grid { grid-template-columns: 1fr; }
   .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
@@ -706,12 +883,11 @@ footer {
   <div class="hero-tag">Survey Methodologist · Quantitative Researcher</div>
   <h1>Jiayun <span class="accent">Jin</span></h1>
   <p class="hero-description">
-    My work begins with a measurement question: <em>how can we know whether social data are reliable?</em> 
-    I study how survey responses and open-ended answers are shaped by design, context, and response processes 
-    &mdash; and I build transparent analytical workflows for turning complex human responses into interpretable evidence.
+    My work begins with a single question: <em>are we observing what we think we are observing?</em>
+    Between a survey response and the attitude it claims to capture, between a sample and the population it is meant to represent, between a coded answer and the meaning it is assumed to carry &mdash; something always intervenes. I study that something.
   </p>
   <p class="hero-subdesc">
-    One continuous question, evolving across surveys, text, and measurement programs.
+    One continuous question, moving across measurement, inference, and interpretation.
   </p>
   <div class="hero-cta">
     <a href="#projects" class="btn btn-primary">View Projects</a>
@@ -731,14 +907,13 @@ footer {
     <div class="about-grid">
       <div class="about-text">
         <p>
-          I am a researcher working at the intersection of <strong>survey methodology</strong>, 
-          <strong>quantitative modeling</strong>, and <strong>computational social science</strong>. My work asks how researchers can turn complex social data — surveys, open-ended responses, and measurement programs — into reliable evidence without hiding the uncertainty and interpretive decisions involved.
+          I am a quantitative researcher specialising in <strong>survey methodology</strong> and <strong>measurement</strong>. My work focuses on what stands between a question and the construct it is meant to capture &mdash; how instruments are designed, where data quality breaks down, and what assumptions link observed numbers to what they are meant to represent.
         </p>
         <p>
-          I was trained in survey methodology and statistical monitoring, and my earlier work focused on response quality, measurement error, and data collection processes. More recently, I have been developing <strong>reproducible analytical workflows</strong> for non-probability survey inference and transparent coding of open-ended responses.
+          I was trained in statistical monitoring and survey data quality at KU Leuven. My doctoral work examined how survey data collection can be monitored for signs of measurement error and later received the <strong>Innovation Prize</strong> at the Netherlands Platform for Survey Research. Since then, I have extended the same measurement questions into non-probability survey inference and transparent coding of open-ended responses. The data settings change; the question stays the same.
         </p>
         <p>
-          I am currently based in the <strong>Netherlands</strong> and looking to apply this background in settings involving survey and experience measurement, data quality, and translating quantitative findings into actionable insights.
+          I am currently based in the <strong>Netherlands</strong>, developing these projects and interested in applied research settings where measurement rigour and practical impact need to work together.
         </p>
       </div>
       <div class="about-timeline">
@@ -895,13 +1070,76 @@ footer {
     </div>
 
     <div class="project-other">
-      <div class="project-card">
-        <h4>Non-Probability Survey Inference</h4>
+      <div class="project-card np-card">
+        <div class="np-card-head">
+          <div class="np-card-title-wrap">
+            <h4>Non-Probability Survey Inference</h4>
+            <div class="np-card-subtitle">R simulation workflow for survey inference under selection bias</div>
+          </div>
+          <a href="https://github.com/jinjiayun57/nonprob-survey-inference" class="btn btn-outline" target="_blank" style="font-size:0.75rem; padding:0.5rem 1rem; white-space:nowrap;">View on GitHub ↗</a>
+        </div>
         <p>
-          An R-based simulation workflow comparing calibration weighting, inverse probability weighting, mass imputation, and doubly robust estimation under different selection mechanisms and auxiliary-information conditions. Documents assumptions, estimator behavior, and interpretation in a transparent GitHub workflow.
+          An R-based methodological project comparing calibration weighting, inverse probability weighting, mass imputation, and doubly robust estimation under different selection mechanisms and auxiliary-information conditions. The project asks a conditional question rather than seeking a single “best” method: <em>when do adjustment methods work, and when do their assumptions break down?</em>
         </p>
-        <div style="margin-top:0.8rem;">
-          <a href="https://github.com/jinjiayun57/nonprob-survey-inference" class="btn btn-outline" target="_blank" style="font-size:0.75rem; padding:0.5rem 1rem;">View on GitHub ↗</a>
+        <div class="np-mini-badges">
+          <span class="np-mini-badge">R</span>
+          <span class="np-mini-badge">Survey Inference</span>
+          <span class="np-mini-badge">Simulation Study</span>
+          <span class="np-mini-badge">Weighting &amp; Imputation</span>
+        </div>
+        <div class="np-card-main">
+          <div class="np-design-box">
+            <div class="np-box-label">Design logic</div>
+            <div class="np-design-flow">
+              <div class="np-flow-row">
+                <div class="np-node"><strong>Finite population</strong>Outcome <em>Y</em>, auxiliary variables <em>X</em>, and selection process</div>
+              </div>
+              <div class="np-flow-row">
+                <span class="np-arrow">↓</span>
+              </div>
+              <div class="np-flow-row">
+                <div class="np-node"><strong>Probability sample</strong>Reference source for adjustment</div>
+                <span class="np-arrow">+</span>
+                <div class="np-node"><strong>Non-probability sample</strong>Biased sample requiring correction</div>
+              </div>
+              <div class="np-flow-row">
+                <span class="np-arrow">↓</span>
+              </div>
+              <div class="np-flow-row">
+                <div class="np-node"><strong>Adjustment methods</strong>Calibration · IPW · Mass imputation · Doubly robust</div>
+              </div>
+            </div>
+            <div class="np-note">
+              Current rounds compare two information settings: <strong>full population auxiliary information</strong> and <strong>probability-reference integration</strong>.
+            </div>
+          </div>
+          <div class="np-result-box">
+            <div class="np-box-label">Main finding: results are conditional</div>
+            <div class="np-matrix">
+              <div class="np-matrix-cell np-matrix-header"></div>
+              <div class="np-matrix-cell np-matrix-header">Ignorable selection</div>
+              <div class="np-matrix-cell np-matrix-header">Non-ignorable selection</div>
+
+              <div class="np-matrix-cell np-matrix-rowlabel">Strong auxiliary variables</div>
+              <div class="np-matrix-cell np-matrix-green">
+                <div class="np-matrix-symbol">✓ Works well</div>
+              </div>
+              <div class="np-matrix-cell np-matrix-yellow">
+                <div class="np-matrix-symbol">~ Partial reduction</div>
+              </div>
+
+              <div class="np-matrix-cell np-matrix-rowlabel">Weak auxiliary variables</div>
+              <div class="np-matrix-cell np-matrix-yellow">
+                <div class="np-matrix-symbol">~ Marginal gain</div>
+              </div>
+              <div class="np-matrix-cell np-matrix-red">
+                <div class="np-matrix-symbol">✗ Breaks down</div>
+              </div>
+            </div>
+            <div class="np-takeaway">
+              <strong>Takeaway:</strong> there is no universally best method — performance depends on the selection mechanism and the quality of auxiliary information.
+            </div>
+          </div>
         </div>
       </div>
       <div class="project-card">
